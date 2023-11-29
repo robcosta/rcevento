@@ -1,5 +1,7 @@
 package com.robertocosta.rcevento.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Participante {
@@ -8,13 +10,16 @@ public class Participante {
 	private String nome;
 	private String email;
 	
+	private List<Atividade> atividades = new ArrayList<>();
+	
 	public Participante() {
 	}
 
-	public Participante(Integer id, String nome, String email) {
+	public Participante(Integer id, String nome, String email, List<Atividade> atividades) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
+		this.atividades = atividades;
 	}
 
 	public Integer getId() {
@@ -40,7 +45,11 @@ public class Participante {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
+	public List<Atividade> getAtividades() {
+		return atividades;
+	}
+		
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
