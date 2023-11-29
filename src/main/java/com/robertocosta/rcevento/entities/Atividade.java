@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,16 +24,17 @@ public class Atividade {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
+	@Column(columnDefinition = "TEXT")
 	private String descricao;
 	private Double preco;
-	private String imgUrl;
 	
 	@ManyToOne
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 	
 	@ManyToMany
-	@JoinTable(name = "tb_ativiade_participante", 
+	@JoinTable(name = "tb_atividade_participante", 
 	joinColumns = @JoinColumn(name = "atividade_id"),	
 	inverseJoinColumns = @JoinColumn(name = "participante_id"))
 	private List<Participante> participantes = new ArrayList<>();
@@ -43,13 +45,12 @@ public class Atividade {
 	public Atividade() {
 	}
 
-	public Atividade(Integer id, String nome, String descricao, Double preco, String imgUrl, Categoria categoria,List<Participante> participantes, List<Bloco> blocos ) {
+	public Atividade(Integer id, String nome, String descricao, Double preco, Categoria categoria,List<Participante> participantes, List<Bloco> blocos ) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
-		this.imgUrl = imgUrl;
 		this.categoria = categoria;
 		this.participantes = participantes;
 		this.blocos = blocos;
@@ -87,14 +88,6 @@ public class Atividade {
 		this.preco = preco;
 	}
 
-	public String getImgUrl() {
-		return imgUrl;
-	}
-
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
-	}
-	
 	public Categoria getCategoria() {
 		return categoria;
 	}
