@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -29,8 +31,11 @@ public class Atividade {
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 	
-	
-//	private List<Participante> participantes = new ArrayList<>();
+	@ManyToMany
+	@JoinTable(name = "tb_ativiade_participante", 
+	joinColumns = @JoinColumn(name = "atividade_id"),	
+	inverseJoinColumns = @JoinColumn(name = "participante_id"))
+	private List<Participante> participantes = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "atividade")
 	private List<Bloco> blocos = new ArrayList<>();
@@ -38,7 +43,7 @@ public class Atividade {
 	public Atividade() {
 	}
 
-	public Atividade(Integer id, String nome, String descricao, Double preco, String imgUrl, Categoria categoria, List<Bloco> blocos ) {
+	public Atividade(Integer id, String nome, String descricao, Double preco, String imgUrl, Categoria categoria,List<Participante> participantes, List<Bloco> blocos ) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -46,7 +51,7 @@ public class Atividade {
 		this.preco = preco;
 		this.imgUrl = imgUrl;
 		this.categoria = categoria;
-//		this.participantes = participantes;
+		this.participantes = participantes;
 		this.blocos = blocos;
 	}
 
@@ -98,9 +103,9 @@ public class Atividade {
 		this.categoria = categoria;
 	}
 	
-//	public List<Participante> getParticipantes() {
-//		return participantes;
-//	}
+	public List<Participante> getParticipantes() {
+		return participantes;
+	}
 	
 	public List<Bloco> getBlocos() {
 		return blocos;
