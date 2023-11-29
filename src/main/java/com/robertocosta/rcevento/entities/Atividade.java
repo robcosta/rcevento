@@ -4,24 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_atividade")
 public class Atividade {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String descricao;
 	private Double preco;
 	private String imgUrl;
 	
+	@ManyToOne
+	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 	
-	private List<Participante> participantes = new ArrayList<>();
+//	private List<Participante> participantes = new ArrayList<>();
 	
-	private List<Bloco> blocos = new ArrayList<>();
+//	private List<Bloco> blocos = new ArrayList<>();
 	
 	public Atividade() {
 	}
 
-	public Atividade(Integer id, String nome, String descricao, Double preco, String imgUrl, Categoria categoria, List<Participante> participantes, List<Bloco> blocos) {
+	public Atividade(Integer id, String nome, String descricao, Double preco, String imgUrl, Categoria categoria) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -29,8 +44,8 @@ public class Atividade {
 		this.preco = preco;
 		this.imgUrl = imgUrl;
 		this.categoria = categoria;
-		this.participantes = participantes;
-		this.blocos = blocos;
+//		this.participantes = participantes;
+//		this.blocos = blocos;
 	}
 
 	public Integer getId() {
@@ -81,13 +96,13 @@ public class Atividade {
 		this.categoria = categoria;
 	}
 	
-	public List<Participante> getParticipantes() {
-		return participantes;
-	}
-	
-	public List<Bloco> getBlocos() {
-		return blocos;
-	}
+//	public List<Participante> getParticipantes() {
+//		return participantes;
+//	}
+//	
+//	public List<Bloco> getBlocos() {
+//		return blocos;
+//	}
 
 	@Override
 	public int hashCode() {
